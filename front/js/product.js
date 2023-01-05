@@ -10,10 +10,16 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 		}
 	}
 )
+
 .then(function(product) {
 	console.log(product);
 
+    
 	// <img src="../images/logo.png" alt="Photographie d'un canapé">
+    let productImage = document.createElement("img")
+    productImage.setAttribute('src',`src=${product.imageUrl}`); 
+    productImage.setAttribute('alt', `alt=${product.altTxt}`)
+    productArticle.appendChild(productImage);
 
 	// <h1 id="title"><!-- Nom du produit --></h1>
 

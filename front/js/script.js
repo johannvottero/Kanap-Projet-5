@@ -21,14 +21,29 @@ fetch("http://localhost:3000/api/products")
 		let productLink = document.createElement("a")
 		productLink.setAttribute('href', `product.html?id=${product._id}`);
 		document.querySelector("section#items").appendChild(productLink);
-		console.log(productLink);
+		//console.log(productLink);
 
 		// <article>
 		let productArticle = document.createElement("article")
 		productLink.appendChild(productArticle);
 
 		// <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
+    let productImage = document.createElement("img")
+    productImage.setAttribute('src',`${product.imageUrl}`); 
+    productImage.setAttribute('alt', `${product.altTxt}`)
+    productArticle.appendChild(productImage);
+    
+    //document.querySelector("article.img").appendChild(productImage);
+  
+
+    /*
+		document.querySelector("article.img").appendChild(productLink);
+    productImage.src = product.imageUrl
+    product.Image.appendChild(ProductImage);
+    console.log(productTitle);
+*/
 		// @todo
+
 
 		// <h3 class="productName">xxxxxxxxxx</h3>
 		let productTitle = document.createElement("h3")
