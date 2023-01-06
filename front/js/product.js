@@ -21,6 +21,12 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     image.setAttribute('alt', `${product.altTxt}`)
     document.querySelector('article > .item__img').appendChild(image);
 
+    //Creating / adding price block code on the product page
+    let productPrice = document.createElement("span")
+    productPrice.textContent = product.price
+    document.querySelector('#price').appendChild(productPrice);
+    
+
     // Creating / adding product title block code on the product page
     let productTitle = document.createElement("h1")
     productTitle.textContent = product.name
