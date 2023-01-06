@@ -15,17 +15,28 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	console.log(product);
 
     
-	// <img src="../images/logo.png" alt="Photographie d'un canapé">
-    let productImage = document.createElement("img")
-    productImage.setAttribute('src',`src=${product.imageUrl}`); 
-    productImage.setAttribute('alt', `alt=${product.altTxt}`)
-    productArticle.appendChild(productImage);
+	// Creating / adding img block code on the product page
+    let image = document.createElement("img")
+    image.setAttribute('src',`${product.imageUrl}`)
+    image.setAttribute('alt', `${product.altTxt}`)
+    document.querySelector('article > .item__img').appendChild(image);
 
-	// <h1 id="title"><!-- Nom du produit --></h1>
+    // Creating / adding product title block code on the product page
+    let productTitle = document.createElement("h1")
+    productTitle.textContent = product.name
+    document.querySelector('#title').appendChild(productTitle);
 
-	// <p id="description"><!-- Dis enim malesuada risus sapien gravida nulla nisl arcu. --></p>
 
-	// <select name="color-select" id="colors">
+	// Creating / adding product description block code on the product page
+    let productDescription = document.createElement("p")
+    productDescription.textContent = product.description
+    document.querySelector('#description').appendChild(productDescription);
+
+	// Creating / adding product colors options on the product page
+    let productColor = document.createElement("option")
+    productColor.textContent = product.colors
+    console.log(productColor)
+    document.querySelector('#colors').appendChild(productColor);
 
 })
 .catch(function(err) {

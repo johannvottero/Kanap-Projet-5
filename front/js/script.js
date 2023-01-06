@@ -13,9 +13,11 @@ fetch("http://localhost:3000/api/products")
 	// Loop on array to handle each product
 	products.forEach((product, index) => {
 
+    /*
 		console.log('######################################################################################');
 		console.log(index);
 		console.log(product);
+    */
 
 		// <a href="./product.html?id=42">
 		let productLink = document.createElement("a")
