@@ -25,13 +25,11 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     let productPrice = document.createElement("span")
     productPrice.textContent = product.price
     document.querySelector('#price').appendChild(productPrice);
-    
 
     // Creating / adding product title block code on the product page
     let productTitle = document.createElement("h1")
     productTitle.textContent = product.name
     document.querySelector('#title').appendChild(productTitle);
-
 
 	// Creating / adding product description block code on the product page
     let productDescription = document.createElement("p")
@@ -41,7 +39,6 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	// Creating / adding product colors options on the product page
     let productColor = document.createElement("option")
     productColor.textContent = product.colors
-    console.log(productColor)
     document.querySelector('#colors').appendChild(productColor);
 
 })

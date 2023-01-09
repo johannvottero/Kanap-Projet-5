@@ -8,7 +8,7 @@ fetch("http://localhost:3000/api/products")
 	}
 )
 .then(function(products) {
-	console.log(products);
+	//console.log(products);
 
 	// Loop on array to handle each product
 	products.forEach((product, index) => {
@@ -29,13 +29,13 @@ fetch("http://localhost:3000/api/products")
 		let productArticle = document.createElement("article")
 		productLink.appendChild(productArticle);
 
-		// adding product image 
-    let productImage = document.createElement("img")
-    productImage.setAttribute('src',`${product.imageUrl}`); 
-    productImage.setAttribute('alt', `${product.altTxt}`)
-    productArticle.appendChild(productImage);
+			// adding product image 
+		let productImage = document.createElement("img")
+		productImage.setAttribute('src',`${product.imageUrl}`); 
+		productImage.setAttribute('alt', `${product.altTxt}`)
+		productArticle.appendChild(productImage);
     
-	// adding product title
+		// adding product title
 		let productTitle = document.createElement("h3")
 		productTitle.setAttribute('class', 'productName');
 		productTitle.textContent = product.name
