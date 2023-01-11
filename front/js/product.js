@@ -13,6 +13,10 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 .then(function(product) {
 	console.log(product)
 
+	// Creating / adding page title on the product page
+	let pageTitle = product.name
+	document.title = pageTitle
+	
 	// Creating / adding img block code on the product page
 	let image = document.createElement("img")
 	image.setAttribute('src',`${product.imageUrl}`)
@@ -65,7 +69,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
     }
 
     else{
-        alert("Merci de renseigner une quantité et une couleur");
+        alert("Veuillez choisir la quantité et la couleur souhaitée");
     }
     }
     )

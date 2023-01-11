@@ -1,9 +1,12 @@
+let cart = localStorage
+//let colorParsed = JSON.parse(cart[1]);
+//console.log(cart[0]);
+let color = localStorage.getItem("colorOption, value");
 
-let Cart = localStorage
-let localStorage = [product._id, product.quantity, product.colors ]
 
-
-// accèder à l'objet local Storage du domaine courant et lui ajoute une entrée en utilisant Storage.setItem().
+// let localStorage = [product._id, product.quantity, product.colors ]
+/*
+/ accèder à l'objet local Storage du domaine courant et lui ajoute une entrée en utilisant Storage.setItem().
 localStorage.setItem('monChat', 'Tom');
 
 //La syntaxe pour la lecture de l'article localStorage est la suivante :
@@ -14,3 +17,7 @@ localStorage.removeItem('monChat');
 
 // Effacer tous les éléments
 localStorage.clear();
+
+let cartString = JSON.stringify(cart);
+let cart = JSON.parse(cartString);
+*/
