@@ -18,30 +18,30 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	document.title = pageTitle
 	
 	// Creating / adding img block code on the product page
-	let image = document.createElement("img")
-	image.setAttribute('src',`${product.imageUrl}`)
-	image.setAttribute('alt', `${product.altTxt}`)
-	document.querySelector('article > .item__img').appendChild(image)
+	let image = document.createElement("img");
+	image.setAttribute('src',`${product.imageUrl}`);
+	image.setAttribute('alt', `${product.altTxt}`);
+	document.querySelector('.item__img').appendChild(image);
 
 	//Creating / adding price block code on the product page
-	let productPrice = document.createElement("span")
-	productPrice.textContent = product.price
-	document.querySelector('#price').appendChild(productPrice)
+	let productPrice = document.createElement("span");
+	productPrice.textContent = product.price;
+	document.querySelector('#price').appendChild(productPrice);
 
 	// Creating / adding product title block code on the product page
-	let productTitle = document.createElement("h1")
-	productTitle.textContent = product.name
-	document.querySelector('#title').appendChild(productTitle)
+	let productTitle = document.createElement("h1");
+	productTitle.textContent = product.name;
+	document.querySelector('#title').appendChild(productTitle);
 
 	// Creating / adding product description block code on the product page
-	let productDescription = document.createElement("p")
-	productDescription.textContent = product.description
-	document.querySelector('#description').appendChild(productDescription)
+	let productDescription = document.createElement("p");
+	productDescription.textContent = product.description;
+	document.querySelector('#description').appendChild(productDescription);
 
     // getting value from quantity field
     let qty = document.getElementById("quantity");
     let value = qty.value;
-    console.log(value)
+    console.log(value);
 
 
 	// Creating / adding product colors options on the product page
@@ -77,7 +77,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 
 /*
 	let cart = [
-		0: {
+		{
 			id: "107fb5b75607497b96722bda5b504926"
 			color: "Blue"
 			qty: 3

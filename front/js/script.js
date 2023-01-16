@@ -29,7 +29,7 @@ fetch("http://localhost:3000/api/products")
 		let productArticle = document.createElement("article")
 		productLink.appendChild(productArticle);
 
-			// adding product image 
+		// adding product image 
 		let productImage = document.createElement("img")
 		productImage.setAttribute('src',`${product.imageUrl}`); 
 		productImage.setAttribute('alt', `${product.altTxt}`)
@@ -43,7 +43,7 @@ fetch("http://localhost:3000/api/products")
 		console.log(productTitle);
 
 		// adding product description
-    let productDescription = document.createElement("p")
+    	let productDescription = document.createElement("p")
 		productDescription.setAttribute('class', 'productDescription');
 		productDescription.textContent = product.description
 		productArticle.appendChild(productDescription);
