@@ -34,20 +34,20 @@ fetch("http://localhost:3000/api/products")
 		productImage.setAttribute('src',`${product.imageUrl}`); 
 		productImage.setAttribute('alt', `${product.altTxt}`)
 		productArticle.appendChild(productImage);
-    
+
 		// adding product title
 		let productTitle = document.createElement("h3")
 		productTitle.setAttribute('class', 'productName');
 		productTitle.textContent = product.name
 		productArticle.appendChild(productTitle);
-		console.log(productTitle);
+		//console.log(productTitle);
 
 		// adding product description
-    	let productDescription = document.createElement("p")
+		let productDescription = document.createElement("p")
 		productDescription.setAttribute('class', 'productDescription');
 		productDescription.textContent = product.description
 		productArticle.appendChild(productDescription);
-		console.log(productDescription);
+		//console.log(productDescription);
 
 	});
 })
