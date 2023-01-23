@@ -90,23 +90,27 @@ cart.forEach((cartItem, index) => {
 		newDivsettings.appendChild(newDivDelete);
 
 		// Adding a new div product description on the page
-		let DeleteButton = document.createElement('p');
-		DeleteButton.setAttribute("class", "deleteItem");
-		DeleteButton.textContent = "Supprimer";
-		newDivDelete.appendChild(DeleteButton);
+		let deleteButton = document.createElement('p');
+		deleteButton.setAttribute("class", "deleteItem");
+		deleteButton.textContent = "Supprimer";
+		newDivDelete.appendChild(deleteButton);
+
 
 		// Listening 'click' event  on delete button
-		const deleteAction = document.querySelector('.cart__item__content__settings__delete');
-		deleteAction.addEventListener('click', function(product) {
-		console.log("clicked")})
+		document.querySelectorAll('.deleteItem').forEach(cartItem =>
+		cartItem.addEventListener('click', function(product) {
+		console.log("clicked")}));
 		
 		// Listening 'click' event  on quantity button
-		const qtyChange = document.querySelector('.cart__item__content__settings__quantity');
-		qtyChange.addEventListener('click', function(product) {
-		console.log("clicked")})
-				
-		let total = (product.qty*product.price)
-		//console.log(product.qty)
+		document.querySelectorAll('.cart__item__content__settings__quantity').forEach(cartItem =>
+		cartItem.addEventListener('change', function(product) {
+		console.log("clicked")}));
+		
+		/*let totalCart = cart.forEach((cartItem, product) => {cartItem.qty*product.price})
+		console.log(totalCart)
+		console.log(cartItem.qty)
+		console.log(product.price)
+		
 /*
 	
 		  <div class="cart__item__content__settings__delete">
@@ -122,61 +126,3 @@ cart.forEach((cartItem, index) => {
 });
 
 
-
-
-
-/*
-
-const storageCart = JSON.parse(localStorage.getItem("product"));
-let productId = localStorage.getItem("productId")
-let color = localStorage.getItem("colorOption")
-let qty = localStorage.getItem("qty")
-
-
-
-//let productCart = [productId, colorOption, qty];
-/*let cart = localStorage;
-let cart = [productId="", colorOption="", qty=""];
-cart.forEach((product, value) => {
-    let productId = localStorage.JSON.Parse(localStorage.(0));
-    console.log(product(0))
-
-})
-//let cartString = JSON.stringify(cart);
-//let cart = [productId, colorOption, qty];
-//let parsedCart = JSON.parse(cartString);
-//let cart = [productId, qty, colorOption ]
-//let colorParsed = JSON.parse(cart[1]);
-//console.log(cart[0]);
-//let parsedCart = JSON.parse(cart);
-//let cartString = JSON.stringify(cart);
-
-//let cartString = JSON.stringify(cart);
-//let parsedCart = JSON.parse(cartString);
-//JSON.parse(window.localStorage.getItem('productId'));
-//let productId = localStorage.getItem(localStorage.key[0]);
-//console.log('productId')
-
-
-//let parsedId = JSON.parse("productId");
-
-//console.log("productId");
-
-
-// let localStorage = [product._id, product.quantity, product.colors ]
-/*
-/ accèder à l'objet local Storage du domaine courant et lui ajoute une entrée en utilisant Storage.setItem().
-localStorage.setItem('monChat','Tom');
-
-//La syntaxe pour la lecture de l'article localStorage est la suivante :
-var cat = localStorage.getItem('monChat');
-
-//La syntaxe pour la suppression de l'élément localStorage est la suivante :
-localStorage.removeItem('monChat');
-
-// Effacer tous les éléments
-localStorage.clear();
-
-let cartString = JSON.stringify(cart);
-let cart = JSON.parse(cartString);
-*/
