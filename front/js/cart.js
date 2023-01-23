@@ -95,22 +95,35 @@ cart.forEach((cartItem, index) => {
 		deleteButton.textContent = "Supprimer";
 		newDivDelete.appendChild(deleteButton);
 
-
 		// Listening 'click' event  on delete button
 		document.querySelectorAll('.deleteItem').forEach(cartItem =>
 		cartItem.addEventListener('click', function(product) {
 		console.log("clicked")}));
 		
-		// Listening 'click' event  on quantity button
+		// Listening 'change' event  on quantity button
 		document.querySelectorAll('.cart__item__content__settings__quantity').forEach(cartItem =>
 		cartItem.addEventListener('change', function(product) {
 		console.log("clicked")}));
 		
-		/*let totalCart = cart.forEach((cartItem, product) => {cartItem.qty*product.price})
-		console.log(totalCart)
-		console.log(cartItem.qty)
-		console.log(product.price)
-		
+		// Calculating total price Cart
+		let totalCart = 0;
+		cart.forEach((cartItem, index) => {
+  		totalCart = totalCart +  (product.price) * (cartItem.qty);
+		});
+		console.log(totalCart);
+
+		// Calculating total quantity Cart
+		let totalQuantityCart = 0;
+		cart.forEach((cartItem, index) => { 
+		totalQuantityCart = (Number(cart.length) + Number(cartItem.qty))});
+
+		// Adding the total cart price on the page
+		totalPrice.textContent = (totalCart);
+
+		// Adding the total quantity on the page
+		totalQuantity.textContent = (totalQuantityCart);
+
+
 /*
 	
 		  <div class="cart__item__content__settings__delete">
