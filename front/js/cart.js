@@ -3,16 +3,19 @@ let cart = JSON.parse(localStorage.getItem("cart"));
 if(cart === null) cart = [];
 console.log(cart);
 
+// Initialisations
+let totalQuantityCart = 0;
+let totalCart = 0;
+
 // Looping on each cart item
 cart.forEach((cartItem, index) => {
 	// Loading missing data from API
 	fetch(`http://localhost:3000/api/products/${cartItem.id}`)
 	.then(function(res) {
-			if(res.ok) {
-				return res.json();
-			}
+		if(res.ok) {
+			return res.json();
 		}
-	)
+	})
 	.then(function(product) {
 		//console.log(cartItem);
 		//console.log(product);
@@ -27,6 +30,10 @@ cart.forEach((cartItem, index) => {
 		newDivImg.setAttribute("class", "cart__item__img");
 		newArticle.appendChild(newDivImg);
 
+		// Setting data id and data color to new article
+		newArticle.setAttribute("data-id",cartItem.id);
+		newArticle.setAttribute("data-color",cartItem.color); 
+		
 		// Adding a new product img on the page
 		let image = document.createElement("img")
 		image.setAttribute('src', `${product.imageUrl}`);
@@ -84,6 +91,12 @@ cart.forEach((cartItem, index) => {
 		inputNumber.setAttribute("value", cartItem.qty);
 		newDivsettingsQuantity.appendChild(inputNumber);
 
+		// Listening 'change' event  on quantity button
+		inputNumber.addEventListener('input', function(event) {
+		let newQuantity = document.querySelector('input.itemQuantity').value;
+		console.log(newQuantity);
+		});
+
 		// Adding a new div product suppression on the page
 		let newDivDelete = document.createElement('div');
 		newDivDelete.setAttribute("class","cart__item__content__settings__delete");
@@ -96,46 +109,26 @@ cart.forEach((cartItem, index) => {
 		newDivDelete.appendChild(deleteButton);
 
 		// Listening 'click' event  on delete button
-		document.querySelectorAll('.deleteItem').forEach(cartItem =>
-		cartItem.addEventListener('click', function(product) {
-		console.log("clicked")}));
-		
-		// Listening 'change' event  on quantity button
-		document.querySelectorAll('.cart__item__content__settings__quantity').forEach(cartItem =>
-		cartItem.addEventListener('change', function(product) {
-		console.log("clicked")}));
-		
-		// Calculating total price Cart
-		let totalCart = 0;
-		cart.forEach((cartItem, index) => {
-  		totalCart = totalCart +  (product.price) * (cartItem.qty);
+		deleteButton.addEventListener('click', function(event) {
+		cart.splice(cart.indexOf(cartItem.id), 1);
+		localStorage.setItem("cart", JSON.stringify(cart));
+		location.reload();
 		});
-		console.log(totalCart);
+
+
 
 		// Calculating total quantity Cart
-		let totalQuantityCart = 0;
-		cart.forEach((cartItem, index) => { 
-		totalQuantityCart = (Number(cart.length) + Number(cartItem.qty))});
-
-		// Adding the total cart price on the page
-		totalPrice.textContent = (totalCart);
-
+		totalQuantityCart = (Number(totalQuantityCart) + Number(cartItem.qty));
 		// Adding the total quantity on the page
 		totalQuantity.textContent = (totalQuantityCart);
 
-
-/*
-	
-		  <div class="cart__item__content__settings__delete">
-		    <p class="deleteItem">Supprimer</p>
-		  </div>
-		</div>
-*/
+		// Calculating total price Cart
+		totalCart = totalCart + Number(product.price) * Number(cartItem.qty);
+		// Adding the total cart price on the page
+		totalPrice.textContent = (totalCart);
 
 	})
 	.catch(function(err) {
 		console.log(err)
 	})
 });
-
-

@@ -8,8 +8,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	if(res.ok) {
 		return res.json()
 	}
-}
-)
+})
 .then(function(product) {
 	//console.log(product)
 
@@ -56,70 +55,35 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	cartBtn.addEventListener('click', function(event) {
 		console.log(colors.value)
 		// Checking if color is choosed and quantity >0
-		if (qty.value > 0 && (colors.value!="")) {
-
-/*
-			JSON.stringify(product._id);
-			JSON.stringify(colors.value);
-			JSON.stringify(qty);
-
-			// Adding id, color and quantity product to localstorage
-			localStorage.setItem("productId", productId);
-			localStorage.setItem("colorOption", colors.value);
-			localStorage.setItem("qty", qty.value);
-*/
-
-			// Creating empty cart
-			//let cart = [];
-
+		if (qty.value > 0 && (colors.value != "")) {
 
 			// Getting back current cart
 			let cart = JSON.parse(localStorage.getItem("cart"));
 			if(cart === null) cart = [];
 
-			// Creating new cart item
-			let cartItem = {
-				id: product._id,
-				qty: qty.value,
-				color: colors.value,
-			};
-			cart.push(cartItem);
+			// Checking if product is already in the cart
+			let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));
+			if(index === -1) {
+				// Case NO : Adding a new item in the cart Array
+				let cartItem = {
+					id: product._id,
+					qty: qty.value,
+					color: colors.value,
+				};
+				cart.push(cartItem);
+			}
+			else {
+				// Case YES : Updating the qty of the existing item in the cart Array
+				cart[index].qty = Number(cart[index].qty) + Number(qty.value);
+			}
 
 			// Saving cart in LocalStorage
 			localStorage.setItem("cart", JSON.stringify(cart));
-
 		}
 		else{
 			alert("Veuillez choisir la quantité et la couleur souhaitée");
 		}
 	});
-
-
-
-
-
-
-
-
-/*
-	let cart = [
-		{
-			id: "107fb5b75607497b96722bda5b504926"
-			color: "Blue"
-			qty: 3
-		},
-		1: {
-			id: "107fb5b75607497b96722bda22222222"
-			color: "Red"
-			qty: 8
-		},
-	];
-
-
-	let cartString = JSON.stringify(cart);
-	let cart = JSON.parse(cartString);
-*/
-
 })
 .catch(function(err) {
 	console.log(err)
