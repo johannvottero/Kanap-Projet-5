@@ -91,12 +91,6 @@ cart.forEach((cartItem, index) => {
 		inputNumber.setAttribute("value", cartItem.qty);
 		newDivsettingsQuantity.appendChild(inputNumber);
 
-		// Listening 'change' event  on quantity button
-		inputNumber.addEventListener('input', function(event) {
-		let newQuantity = document.querySelector('input.itemQuantity').value;
-		console.log(newQuantity);
-		});
-
 		// Adding a new div product suppression on the page
 		let newDivDelete = document.createElement('div');
 		newDivDelete.setAttribute("class","cart__item__content__settings__delete");
@@ -110,12 +104,37 @@ cart.forEach((cartItem, index) => {
 
 		// Listening 'click' event  on delete button
 		deleteButton.addEventListener('click', function(event) {
-		cart.splice(cart.indexOf(cartItem.id), 1);
+		// Getting back current cart
+		let cart = JSON.parse(localStorage.getItem("cart"));
+		if(cart === null) cart = [];
+
+		// Checking if product is already in the cart
+		let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
+		console.log(index)
+		//console.log(index)
+		if(index !==-1) {
+		cart.splice(index,1);
+		
+		}
+		// Saving cart in LocalStorage
 		localStorage.setItem("cart", JSON.stringify(cart));
 		location.reload();
-		});
+		})
 
-
+		// Listening 'change' event  on quantity button
+		inputNumber.addEventListener('input', function(event) {
+		let newQuantity = document.querySelector('input.itemQuantity').value;
+		let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
+		console.log(index)
+		if(index !==-1) {
+			cart[index].qty = newQuantity
+			cart.splice(cart[index].qty, newQuantity);
+		console.log(cart);
+		localStorage.setItem("cart", JSON.stringify(cart));
+		location.reload();
+		}}
+		);
+		
 
 		// Calculating total quantity Cart
 		totalQuantityCart = (Number(totalQuantityCart) + Number(cartItem.qty));
@@ -127,6 +146,35 @@ cart.forEach((cartItem, index) => {
 		// Adding the total cart price on the page
 		totalPrice.textContent = (totalCart);
 
+		/*
+		order.addEventListener('clic', function(event) {
+		let firstName = document.getElementById("#firstName").value;
+		let lastName = document.getElementById("#lastName").value;
+		let address = document.getElementById("#address").value;
+		let city = document.getElementById("#city").value;
+		let email = document.getElementById("#email").value;
+		})
+
+
+
+		/*
+		(fetch(`http://localhost:3000/api/confirmation/), {
+		method: POST,
+		headers: { 
+		'Accept': 'application/json', 
+		'Content-Type': 'application/json' 
+		},
+		body: JSON.stringify(jsonBody)
+		firstName: string,
+		lastName: string,
+		address: string,
+		city: string,
+		email: string
+		});
+		
+		console.log(firstName)
+	*/
+	
 	})
 	.catch(function(err) {
 		console.log(err)
