@@ -114,7 +114,7 @@ cart.forEach((cartItem, index) => {
 		//console.log(index)
 		if(index !==-1) {
 		cart.splice(index,1);
-		
+
 		}
 		// Saving cart in LocalStorage
 		localStorage.setItem("cart", JSON.stringify(cart));
@@ -125,17 +125,14 @@ cart.forEach((cartItem, index) => {
 		inputNumber.addEventListener('input', function(event) {
 		let newQuantity = document.querySelector('input.itemQuantity').value;
 		let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
-		console.log(index)
 		if(index !==-1) {
 			cart[index].qty = newQuantity
-			cart.splice(cart[index].qty, newQuantity);
-		console.log(cart);
+			cart.splice(cart[index].qty);
 		localStorage.setItem("cart", JSON.stringify(cart));
 		location.reload();
 		}}
 		);
 		
-
 		// Calculating total quantity Cart
 		totalQuantityCart = (Number(totalQuantityCart) + Number(cartItem.qty));
 		// Adding the total quantity on the page
@@ -146,35 +143,34 @@ cart.forEach((cartItem, index) => {
 		// Adding the total cart price on the page
 		totalPrice.textContent = (totalCart);
 
-		/*
-		order.addEventListener('clic', function(event) {
-		let firstName = document.getElementById("#firstName").value;
-		let lastName = document.getElementById("#lastName").value;
-		let address = document.getElementById("#address").value;
-		let city = document.getElementById("#city").value;
-		let email = document.getElementById("#email").value;
-		})
-
-
-
-		/*
-		(fetch(`http://localhost:3000/api/confirmation/), {
-		method: POST,
-		headers: { 
-		'Accept': 'application/json', 
-		'Content-Type': 'application/json' 
-		},
-		body: JSON.stringify(jsonBody)
+		let contact = {
 		firstName: string,
 		lastName: string,
 		address: string,
 		city: string,
-		email: string
-		});
+		email: string,
+		};
+
+		let firstName = document.getElementById("firstName").value;
+		let lastName = document.getElementById("lastName").value;
+		let address = document.getElementById("address").value;
+		let city = document.getElementById("city").value;
+		let email = document.getElementById("email").value;
+
+		//listening to order button : on click, send user information to API 
+		order.addEventListener('clic', function(event) {
+		fetch(`http://localhost:3000/api/products/order`), {
+		method: 'POST',
+		Headers : {
+			"Accept" : "application/json",
+			"Content-type": "application/json"
+		},
+		body: (contact),
 		
-		console.log(firstName)
-	*/
-	
+		};
+		});
+
+
 	})
 	.catch(function(err) {
 		console.log(err)
