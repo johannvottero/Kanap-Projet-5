@@ -104,34 +104,36 @@ cart.forEach((cartItem, index) => {
 
 		// Listening 'click' event  on delete button
 		deleteButton.addEventListener('click', function(event) {
-		// Getting back current cart
-		let cart = JSON.parse(localStorage.getItem("cart"));
-		if(cart === null) cart = [];
+			// Getting back current cart
+			let cart = JSON.parse(localStorage.getItem("cart"));
+			if(cart === null) cart = [];
 
-		// Checking if product is already in the cart
-		let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
-		console.log(index)
-		//console.log(index)
-		if(index !==-1) {
-		cart.splice(index,1);
-
-		}
-		// Saving cart in LocalStorage
-		localStorage.setItem("cart", JSON.stringify(cart));
-		location.reload();
-		})
+			// Checking if product is already in the cart
+			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
+			if(index !== -1) {
+				cart.splice(index, 1);
+			}
+			// Saving cart in LocalStorage
+			localStorage.setItem("cart", JSON.stringify(cart));
+			location.reload();
+		});
 
 		// Listening 'change' event  on quantity button
 		inputNumber.addEventListener('input', function(event) {
-		let newQuantity = document.querySelector('input.itemQuantity').value;
-		let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
-		if(index !==-1) {
-			cart[index].qty = newQuantity
-			cart.splice(cart[index].qty);
-		localStorage.setItem("cart", JSON.stringify(cart));
-		location.reload();
-		}}
-		);
+			// Getting back current cart
+			let cart = JSON.parse(localStorage.getItem("cart"));
+			if(cart === null) cart = [];
+
+			// Checking if product is already in the cart
+			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
+			if(index !== -1) {
+				let newQuantity = Number(inputNumber.value);
+				cart[index].qty = newQuantity;
+				// Saving cart in LocalStorage
+				localStorage.setItem("cart", JSON.stringify(cart));
+				location.reload();
+			}
+		});
 		
 		// Calculating total quantity Cart
 		totalQuantityCart = (Number(totalQuantityCart) + Number(cartItem.qty));
@@ -142,37 +144,95 @@ cart.forEach((cartItem, index) => {
 		totalCart = totalCart + Number(product.price) * Number(cartItem.qty);
 		// Adding the total cart price on the page
 		totalPrice.textContent = (totalCart);
-
-		let contact = {
-		firstName: string,
-		lastName: string,
-		address: string,
-		city: string,
-		email: string,
-		};
-
-		let firstName = document.getElementById("firstName").value;
-		let lastName = document.getElementById("lastName").value;
-		let address = document.getElementById("address").value;
-		let city = document.getElementById("city").value;
-		let email = document.getElementById("email").value;
-
-		//listening to order button : on click, send user information to API 
-		order.addEventListener('clic', function(event) {
-		fetch(`http://localhost:3000/api/products/order`), {
-		method: 'POST',
-		Headers : {
-			"Accept" : "application/json",
-			"Content-type": "application/json"
-		},
-		body: (contact),
-		
-		};
-		});
-
-
 	})
 	.catch(function(err) {
 		console.log(err)
 	})
+});
+
+// ################################################## Listening form submission
+// Listening form submission
+document.querySelector('form.cart__order__form').addEventListener('submit', function(event) {
+	// Stopping form from being sent
+	event.preventDefault();
+
+	// Creating contactData object with form fields
+	let contactData = {
+		firstName: document.getElementById("firstName").value,
+		lastName: document.getElementById("lastName").value,
+		address: document.getElementById("address").value,
+		city: document.getElementById("city").value,
+		email: document.getElementById("email").value,
+	};
+	console.log(contactData);
+
+	// Creating productsData array with products ids
+	let productsIds = [];
+
+	// Getting back current cart
+	let cart = JSON.parse(localStorage.getItem("cart"));
+	if(cart === null) cart = [];
+
+	// Adding products ids in productsIds
+	cart.forEach((cartItem, index) => {
+		productsIds.push(cartItem.id);
+	});
+
+	let hasError = false;
+
+	// Checking firstName
+	/*
+	let firstNameInput = document.getElementById('firstName');
+	let firstNameError = document.getElementById('firstNameErrorMsg');
+	let firstNameRegex = new RegExp("^[a-zA-Z]+$");
+	if(firstNameRegex.test(firstNameInput.value)) {
+		// There is no problem
+		firstNameError.textContent = "";
+	}
+	else {
+		// There is a problem
+		firstNameError.textContent = "Le prénom est invalide";
+		hasError = false;
+	}
+	*/
+
+	// Checking lastName
+	// @todo
+
+	// Checking address
+	// @todo
+
+	// Checking city
+	// @todo
+
+	// Checking email
+	// @todo
+
+	if(hasError === false) {
+		// Call API via fetch
+		fetch(`http://localhost:3000/api/products/order`, {
+			method: 'POST',
+			headers : {
+				"Accept" : "application/json",
+				"Content-type": "application/json"
+			},
+			body: JSON.stringify({
+				contact: contactData,
+				products: productsIds
+			}),
+		})
+		.then(function(res) {
+			if(res.ok) {
+				return res.json()
+			}
+		})
+		.then(function(response) {
+			console.log(response.orderId);
+			// @todo redirectin confirmation with orderId
+			location.href = `confirmation.html?orderId=${response.orderId}`;
+		})
+		.catch(function(err) {
+			console.log(err)
+		});
+	}
 });

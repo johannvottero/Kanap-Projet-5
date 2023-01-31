@@ -67,7 +67,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 				// Case NO : Adding a new item in the cart Array
 				let cartItem = {
 					id: product._id,
-					qty: qty.value,
+					qty: Number(qty.value),
 					color: colors.value,
 				};
 				cart.push(cartItem);
