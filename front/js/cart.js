@@ -17,8 +17,6 @@ cart.forEach((cartItem, index) => {
 		}
 	})
 	.then(function(product) {
-		//console.log(cartItem);
-		//console.log(product);
 
 		// Adding a new article on the page
 		let newArticle = document.createElement('article');
@@ -64,7 +62,6 @@ cart.forEach((cartItem, index) => {
 		let quantityField = document.createElement('p');
 		quantityField.textContent = "Qté : "
 		newDivsettingsQuantity.appendChild(quantityField);
-		
 
 		// Creating / adding product title block code on the product page
 		let productTitle = document.createElement("h2");
@@ -181,32 +178,81 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 	let hasError = false;
 
 	// Checking firstName
-	/*
+
 	let firstNameInput = document.getElementById('firstName');
 	let firstNameError = document.getElementById('firstNameErrorMsg');
 	let firstNameRegex = new RegExp("^[a-zA-Z]+$");
 	if(firstNameRegex.test(firstNameInput.value)) {
 		// There is no problem
 		firstNameError.textContent = "";
+		hasError = false;
 	}
 	else {
 		// There is a problem
 		firstNameError.textContent = "Le prénom est invalide";
-		hasError = false;
+		hasError === true;
 	}
-	*/
+	
 
 	// Checking lastName
-	// @todo
+	let lastNameInput = document.getElementById('lastName');
+	let lastNameError = document.getElementById('lastNameErrorMsg');
+	let lastNameRegex = new RegExp("^[a-zA-Z]+$");
+	if(lastNameRegex.test(lastNameInput.value)) {
+		// There is no problem
+		lastNameError.textContent = "";
+		hasError = false;
+	}
+	else {
+		// There is a problem
+		lastNameError.textContent = "Le nom est invalide";
+		hasError === true;
+	}
 
 	// Checking address
-	// @todo
+	let addressInput = document.getElementById('address');
+	let addressError = document.getElementById('addressErrorMsg');
+	let addressRegex = new RegExp("^[a-zA-Z][0-9]+$");
+	if(addressRegex.test(addressInput.value)) {
+		// There is no problem
+		addressError.textContent = "";
+		hasError = false;
+	}
+	else {
+		// There is a problem
+		addressError.textContent = "L'adresse est invalide";
+		hasError === true;
+	}
 
 	// Checking city
-	// @todo
+		let cityInput = document.getElementById('city');
+		let cityError = document.getElementById('cityErrorMsg');
+		let cityRegex = new RegExp("^[a-zA-Z]+$");
+		if(cityRegex.test(cityInput.value)) {
+			// There is no problem
+			cityError.textContent = "";
+			hasError = false;
+		}
+		else {
+			// There is a problem
+			cityError.textContent = "La ville est invalide";
+			hasError === true;
+		}
 
 	// Checking email
-	// @todo
+	let emailInput = document.getElementById('email');
+		let emailError = document.getElementById('emailErrorMsg');
+		let emailRegex = new RegExp("^[a-zA-Z][0-9]+@[a-zA-Z][0-9]$");
+		if(emailRegex.test(emailInput.value)) {
+			// There is no problem
+			emailError.textContent = "";
+			hasError = false;
+		}
+		else {
+			// There is a problem
+			emailError.textContent = "L'email est invalide";
+			hasError === true;
+		}
 
 	if(hasError === false) {
 		// Call API via fetch
@@ -230,9 +276,16 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 			console.log(response.orderId);
 			// @todo redirectin confirmation with orderId
 			location.href = `confirmation.html?orderId=${response.orderId}`;
+			
 		})
 		.catch(function(err) {
 			console.log(err)
 		});
 	}
+	/*else(hasError !== false) 
+	{
+		event.stopPropagation(response)
+		preventDefault(response)
+	}
+	*/
 });
