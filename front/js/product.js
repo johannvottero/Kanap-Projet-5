@@ -51,6 +51,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	});
 
 	// Listening 'click' event  on AddToCart button
+
 	const cartBtn = document.querySelector('#addToCart');
 	cartBtn.addEventListener('click', function(event) {
 		console.log(colors.value)

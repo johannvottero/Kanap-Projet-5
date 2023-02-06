@@ -161,7 +161,6 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 		city: document.getElementById("city").value,
 		email: document.getElementById("email").value,
 	};
-	console.log(contactData);
 
 	// Creating productsData array with products ids
 	let productsIds = [];
@@ -175,10 +174,10 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 		productsIds.push(cartItem.id);
 	});
 
+	//initializing error message
 	let hasError = false;
 
 	// Checking firstName
-
 	let firstNameInput = document.getElementById('firstName');
 	let firstNameError = document.getElementById('firstNameErrorMsg');
 	let firstNameRegex = new RegExp("^[a-zA-Z]+$");
@@ -282,10 +281,5 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 			console.log(err)
 		});
 	}
-	/*else(hasError !== false) 
-	{
-		event.stopPropagation(response)
-		preventDefault(response)
-	}
-	*/
+
 });

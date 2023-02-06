@@ -5,6 +5,10 @@ fetch("http://localhost:3000/api/products")
 		if(res.ok) {
 			return res.json();
 		}
+		// case no product avaiblable on home page
+		/*else(res == null) (!res.ok) {
+			window.alert("ko").
+		} */
 	}
 )
 .then(function(products) {
@@ -53,4 +57,5 @@ fetch("http://localhost:3000/api/products")
 })
 .catch(function(err) {
 	console.log(err);
+	
 });
