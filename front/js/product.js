@@ -1,5 +1,5 @@
 // Get back current productId
-let productId = new URL(window.location.href).searchParams.get('id')
+let productId = getUrlParam('id')
 //console.log(productId)
 
 // Fetch API in order to get current product data
@@ -8,6 +8,11 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	if(res.ok) {
 		return res.json()
 	}
+	//case ProductId missing / incorrect
+/* 	else {
+		(productId == "" || product.id != productId )
+		document.querySelector("article").textContent("produit non disponible")
+	} */
 })
 .then(function(product) {
 	//console.log(product)
@@ -59,8 +64,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 		if (qty.value > 0 && (colors.value != "")) {
 
 			// Getting back current cart
-			let cart = JSON.parse(localStorage.getItem("cart"));
-			if(cart === null) cart = [];
+			let cart = getCart();
 
 			// Checking if product is already in the cart
 			let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));
@@ -79,7 +83,7 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 			}
 
 			// Saving cart in LocalStorage
-			localStorage.setItem("cart", JSON.stringify(cart));
+			saveCart(cart);
 		}
 		else{
 			alert("Veuillez choisir la quantité et la couleur souhaitée");

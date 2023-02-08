@@ -1,7 +1,12 @@
 // Getting back current cart
 let cart = JSON.parse(localStorage.getItem("cart"));
 if(cart === null) cart = [];
-console.log(cart);
+//console.log(cart);
+
+/* // case cart is empty
+ if(cart === []) {
+	document.querySelector("section.cart").textContent("votre panier est vide")
+}  */
 
 // Initialisations
 let totalQuantityCart = 0;
@@ -102,8 +107,7 @@ cart.forEach((cartItem, index) => {
 		// Listening 'click' event  on delete button
 		deleteButton.addEventListener('click', function(event) {
 			// Getting back current cart
-			let cart = JSON.parse(localStorage.getItem("cart"));
-			if(cart === null) cart = [];
+			let cart = getCart();
 
 			// Checking if product is already in the cart
 			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
@@ -111,15 +115,14 @@ cart.forEach((cartItem, index) => {
 				cart.splice(index, 1);
 			}
 			// Saving cart in LocalStorage
-			localStorage.setItem("cart", JSON.stringify(cart));
+			saveCart(cart);
 			location.reload();
 		});
 
 		// Listening 'change' event  on quantity button
 		inputNumber.addEventListener('input', function(event) {
 			// Getting back current cart
-			let cart = JSON.parse(localStorage.getItem("cart"));
-			if(cart === null) cart = [];
+			let cart = getCart();
 
 			// Checking if product is already in the cart
 			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
@@ -127,7 +130,7 @@ cart.forEach((cartItem, index) => {
 				let newQuantity = Number(inputNumber.value);
 				cart[index].qty = newQuantity;
 				// Saving cart in LocalStorage
-				localStorage.setItem("cart", JSON.stringify(cart));
+				saveCart(cart);
 				location.reload();
 			}
 		});
@@ -180,77 +183,71 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 	// Checking firstName
 	let firstNameInput = document.getElementById('firstName');
 	let firstNameError = document.getElementById('firstNameErrorMsg');
-	let firstNameRegex = new RegExp("^[a-zA-Z]+$");
+	let firstNameRegex = new RegExp("^[a-zA-Z 'àâäéèêëïîôöùûüç-]+$");
 	if(firstNameRegex.test(firstNameInput.value)) {
 		// There is no problem
 		firstNameError.textContent = "";
-		hasError = false;
 	}
 	else {
 		// There is a problem
 		firstNameError.textContent = "Le prénom est invalide";
-		hasError === true;
+		hasError = true;
 	}
-	
 
 	// Checking lastName
 	let lastNameInput = document.getElementById('lastName');
 	let lastNameError = document.getElementById('lastNameErrorMsg');
-	let lastNameRegex = new RegExp("^[a-zA-Z]+$");
+	let lastNameRegex = new RegExp("^[a-zA-Z 'àâäéèêëïîôöùûüç-]+$");
 	if(lastNameRegex.test(lastNameInput.value)) {
 		// There is no problem
 		lastNameError.textContent = "";
-		hasError = false;
 	}
 	else {
 		// There is a problem
 		lastNameError.textContent = "Le nom est invalide";
-		hasError === true;
+		hasError = true;
 	}
 
 	// Checking address
 	let addressInput = document.getElementById('address');
 	let addressError = document.getElementById('addressErrorMsg');
-	let addressRegex = new RegExp("^[a-zA-Z][0-9]+$");
+	let addressRegex = new RegExp("^[0-9a-zA-Z 'àâäéèêëïîôöùûüç-]+$");
 	if(addressRegex.test(addressInput.value)) {
 		// There is no problem
 		addressError.textContent = "";
-		hasError = false;
 	}
 	else {
 		// There is a problem
 		addressError.textContent = "L'adresse est invalide";
-		hasError === true;
+		hasError = true;
 	}
 
 	// Checking city
 		let cityInput = document.getElementById('city');
 		let cityError = document.getElementById('cityErrorMsg');
-		let cityRegex = new RegExp("^[a-zA-Z]+$");
+		let cityRegex = new RegExp("^[a-zA-Z 'àâäéèêëïîôöùûüç-]+$");
 		if(cityRegex.test(cityInput.value)) {
 			// There is no problem
 			cityError.textContent = "";
-			hasError = false;
 		}
 		else {
 			// There is a problem
 			cityError.textContent = "La ville est invalide";
-			hasError === true;
+			hasError = true;
 		}
 
 	// Checking email
 	let emailInput = document.getElementById('email');
 		let emailError = document.getElementById('emailErrorMsg');
-		let emailRegex = new RegExp("^[a-zA-Z][0-9]+@[a-zA-Z][0-9]$");
+		let emailRegex = new RegExp("^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9._-]+[.]{1}[a-z]{2,3}$");
 		if(emailRegex.test(emailInput.value)) {
 			// There is no problem
 			emailError.textContent = "";
-			hasError = false;
 		}
 		else {
 			// There is a problem
 			emailError.textContent = "L'email est invalide";
-			hasError === true;
+			hasError = true;
 		}
 
 	if(hasError === false) {
@@ -281,5 +278,6 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 			console.log(err)
 		});
 	}
+	
 
 });

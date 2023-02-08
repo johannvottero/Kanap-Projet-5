@@ -1,16 +1,26 @@
-function getUrlParam(paramName = '') {}
-
+function getUrlParam(paramName = '') {
+	let paramValue = new URL(window.location.href).searchParams.get(paramName)
+	if(paramValue === null) paramValue = '';
+	return paramValue;
+}
 
 // Getting back current cart
 function getCart() {
 	let cart = JSON.parse(localStorage.getItem("cart"));
 	if(cart === null) cart = [];
+	return cart;
 }
 
 // Saving cart in LocalStorage
 function saveCart(cart = []) {
 	localStorage.setItem("cart", JSON.stringify(cart));
 }
+
+
+// #########################################################################################################
+// #########################################################################################################
+// #########################################################################################################
+
 
 function findProductFromCart(productId = '', productColor = '') {
     let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));
