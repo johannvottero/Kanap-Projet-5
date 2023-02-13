@@ -14,34 +14,30 @@ function getCart() {
 // Saving cart in LocalStorage
 function saveCart(cart = []) {
 	localStorage.setItem("cart", JSON.stringify(cart));
+    return cart;
 }
 
-
-// #########################################################################################################
-// #########################################################################################################
 // #########################################################################################################
 
 
+// retrieving a product in cart
 function findProductFromCart(productId = '', productColor = '') {
     let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));
+    return objectFound;
 }
 
 // Delete product from cart
 function deleteProductToCart(productId = '', productColor = '') {
-
-        // Getting back current cart
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        if(cart === null) cart = [];
-
-        // Checking if product is already in the cart
-        let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
+    getCart()
+    // Checking if product is already in the cart
+    let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
         if(index !== -1) {
-            cart.splice(index, 1);
+        // deleting item
+        cart.splice(index, 1);
         }
-        // Saving cart in LocalStorage
-        localStorage.setItem("cart", JSON.stringify(cart));
-        location.reload();
-    };
+        saveCart()
+        };
+
 
 function updateProductQuantityFromCart(productId = '', productColor = '', quantity = 0) {
     let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
@@ -50,6 +46,7 @@ function updateProductQuantityFromCart(productId = '', productColor = '', quanti
 				cart[index].qty = newQuantity;
 			}
 }
+
 
 function addProductToCart(productId = '', productColor = '', quantity = 0) {
     let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));

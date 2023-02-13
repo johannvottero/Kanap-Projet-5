@@ -1,12 +1,16 @@
 // Getting back current cart
-let cart = JSON.parse(localStorage.getItem("cart"));
-if(cart === null) cart = [];
-//console.log(cart);
 
-/* // case cart is empty
- if(cart === []) {
-	document.querySelector("section.cart").textContent("votre panier est vide")
-}  */
+let cart = getCart()
+
+/* let cart = JSON.parse(localStorage.getItem("cart"));
+if(cart === null) cart = []; */
+
+// case cart is empty
+if (cart.length === 0) {
+	let errorMsgEmptyCart = document.querySelector("section.cart");
+	errorMsgEmptyCart.textContent = "Votre panier est vide";
+  }
+//console.log(cart);
 
 // Initialisations
 let totalQuantityCart = 0;
@@ -109,6 +113,7 @@ cart.forEach((cartItem, index) => {
 			// Getting back current cart
 			let cart = getCart();
 
+
 			// Checking if product is already in the cart
 			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
 			if(index !== -1) {
@@ -169,8 +174,7 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 	let productsIds = [];
 
 	// Getting back current cart
-	let cart = JSON.parse(localStorage.getItem("cart"));
-	if(cart === null) cart = [];
+	let cart = getCart()
 
 	// Adding products ids in productsIds
 	cart.forEach((cartItem, index) => {
@@ -278,6 +282,4 @@ document.querySelector('form.cart__order__form').addEventListener('submit', func
 			console.log(err)
 		});
 	}
-	
-
 });

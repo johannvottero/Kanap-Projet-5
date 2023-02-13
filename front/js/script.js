@@ -7,12 +7,11 @@ fetch("http://localhost:3000/api/products")
 		}
 	}
 )
-.then(function(products) {
-	//console.log(products);
 
+.then(function(products) {
+	console.log(products);
 	// Loop on array to handle each product
 	products.forEach((product, index) => {
-
     /*
 		console.log('######################################################################################');
 		console.log(index);
@@ -48,11 +47,14 @@ fetch("http://localhost:3000/api/products")
 		productDescription.textContent = product.description
 		productArticle.appendChild(productDescription);
 		//console.log(productDescription);
-
+		
 	});
 })
 .catch(function(err) {
 	console.log(err);
-	// case no product avaiblable on home page
-		/* document.querySelector('section.items').textContent('aucun article disponible') */
+			// case no product avaiblable on home page
+		if(products.length === 0){
+			let errorMsgNoProductAvailable = document.querySelector('section.items')
+			errorMsgNoProductAvailable.textContent = "aucun article disponible";
+			}
 });

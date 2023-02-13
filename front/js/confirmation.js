@@ -12,7 +12,12 @@ if(orderId !== '') {
 
 	// Removing products from cart
 	localStorage.setItem("cart", JSON.stringify([]));
+	
 }
 else {
-	alert("orderid manquant")
+	/* alert("orderid manquant") */
+	let errorMsgMissingOrderId = "Commande introuvable";
+	let errorMsg = document.createElement('p');
+	errorMsg.textContent = errorMsgMissingOrderId;
+	document.querySelector('confirmation.p').appendChild(errorMsg);
 }

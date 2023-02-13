@@ -1,5 +1,10 @@
 // Get back current productId
-let productId = getUrlParam('id')
+let productId = getUrlParam('id') 
+//case ProductId missing / incorrect
+if(productId === '' ) {
+	let errorMsgMissingProduct = document.querySelector("article");
+	errorMsgMissingProduct.textContent = "produit non disponible";
+  }
 //console.log(productId)
 
 // Fetch API in order to get current product data
@@ -8,11 +13,6 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	if(res.ok) {
 		return res.json()
 	}
-	//case ProductId missing / incorrect
-/* 	else {
-		(productId == "" || product.id != productId )
-		document.querySelector("article").textContent("produit non disponible")
-	} */
 })
 .then(function(product) {
 	//console.log(product)
@@ -92,4 +92,8 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 })
 .catch(function(err) {
 	console.log(err)
+	if(productId === '' ) {
+		let errorMsgMissingProduct = document.querySelector("article")
+		errorMsgMissingProduct.textContent = "produit non disponible";
+	  }
 })
