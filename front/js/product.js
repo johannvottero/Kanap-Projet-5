@@ -3,8 +3,8 @@ let productId = getUrlParam('id')
 //case ProductId missing / incorrect
 if(productId === '' ) {
 	let errorMsgMissingProduct = document.querySelector("article");
-	errorMsgMissingProduct.textContent = "produit non disponible";
-  }
+	errorMsgMissingProduct.textContent = "Produit non disponible";
+}
 //console.log(productId)
 
 // Fetch API in order to get current product data
@@ -56,34 +56,11 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 	});
 
 	// Listening 'click' event  on AddToCart button
-
 	const cartBtn = document.querySelector('#addToCart');
 	cartBtn.addEventListener('click', function(event) {
-		console.log(colors.value)
 		// Checking if color is choosed and quantity >0
 		if (qty.value > 0 && (colors.value != "")) {
-
-			// Getting back current cart
-			let cart = getCart();
-
-			// Checking if product is already in the cart
-			let index = cart.findIndex(item => (product._id == item.id && colors.value == item.color));
-			if(index === -1) {
-				// Case NO : Adding a new item in the cart Array
-				let cartItem = {
-					id: product._id,
-					qty: Number(qty.value),
-					color: colors.value,
-				};
-				cart.push(cartItem);
-			}
-			else {
-				// Case YES : Updating the qty of the existing item in the cart Array
-				cart[index].qty = Number(cart[index].qty) + Number(qty.value);
-			}
-
-			// Saving cart in LocalStorage
-			saveCart(cart);
+			addProductToCart(product._id, colors.value, Number(qty.value));
 		}
 		else{
 			alert("Veuillez choisir la quantité et la couleur souhaitée");
@@ -92,8 +69,6 @@ fetch(`http://localhost:3000/api/products/${productId}`)
 })
 .catch(function(err) {
 	console.log(err)
-	if(productId === '' ) {
-		let errorMsgMissingProduct = document.querySelector("article")
-		errorMsgMissingProduct.textContent = "produit non disponible";
-	  }
-})
+	let errorMsgMissingProduct = document.querySelector("article");
+	errorMsgMissingProduct.textContent = "Produit non disponible";
+});

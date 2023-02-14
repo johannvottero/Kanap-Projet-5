@@ -7,12 +7,18 @@ fetch("http://localhost:3000/api/products")
 		}
 	}
 )
-
 .then(function(products) {
-	console.log(products);
+	//console.log(products);
+
+	// case no product avaiblable on home page
+	if(products.length === 0) {
+		let errorMsgNoProductAvailable = document.querySelector('section.items');
+		errorMsgNoProductAvailable.textContent = "Aucun article disponible";
+	}
+
 	// Loop on array to handle each product
 	products.forEach((product, index) => {
-    /*
+		/*
 		console.log('######################################################################################');
 		console.log(index);
 		console.log(product);
@@ -28,9 +34,9 @@ fetch("http://localhost:3000/api/products")
 		let productArticle = document.createElement("article")
 		productLink.appendChild(productArticle);
 
-		// adding product image 
+		// adding product image
 		let productImage = document.createElement("img")
-		productImage.setAttribute('src',`${product.imageUrl}`); 
+		productImage.setAttribute('src',`${product.imageUrl}`);
 		productImage.setAttribute('alt', `${product.altTxt}`)
 		productArticle.appendChild(productImage);
 
@@ -47,14 +53,11 @@ fetch("http://localhost:3000/api/products")
 		productDescription.textContent = product.description
 		productArticle.appendChild(productDescription);
 		//console.log(productDescription);
-		
+
 	});
 })
 .catch(function(err) {
 	console.log(err);
-			// case no product avaiblable on home page
-		if(products.length === 0){
-			let errorMsgNoProductAvailable = document.querySelector('section.items')
-			errorMsgNoProductAvailable.textContent = "aucun article disponible";
-			}
+	let errorMsgNoProductAvailable = document.querySelector('section.items');
+	errorMsgNoProductAvailable.textContent = "Aucun article disponible";
 });

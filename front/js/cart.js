@@ -9,7 +9,8 @@ if(cart === null) cart = []; */
 if (cart.length === 0) {
 	let errorMsgEmptyCart = document.querySelector("section.cart");
 	errorMsgEmptyCart.textContent = "Votre panier est vide";
-  }
+	errorMsgEmptyCart.setAttribute('style', 'text-align:center');
+}
 //console.log(cart);
 
 // Initialisations
@@ -110,34 +111,14 @@ cart.forEach((cartItem, index) => {
 
 		// Listening 'click' event  on delete button
 		deleteButton.addEventListener('click', function(event) {
-			// Getting back current cart
-			let cart = getCart();
-
-
-			// Checking if product is already in the cart
-			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
-			if(index !== -1) {
-				cart.splice(index, 1);
-			}
-			// Saving cart in LocalStorage
-			saveCart(cart);
+			deleteProductToCart(cartItem.id, cartItem.color);
 			location.reload();
 		});
 
 		// Listening 'change' event  on quantity button
 		inputNumber.addEventListener('input', function(event) {
-			// Getting back current cart
-			let cart = getCart();
-
-			// Checking if product is already in the cart
-			let index = cart.findIndex(item => (item.id == cartItem.id && item.color == cartItem.color));
-			if(index !== -1) {
-				let newQuantity = Number(inputNumber.value);
-				cart[index].qty = newQuantity;
-				// Saving cart in LocalStorage
-				saveCart(cart);
-				location.reload();
-			}
+			updateProductQuantityFromCart(cartItem.id, cartItem.color, Number(inputNumber.value));
+			location.reload();
 		});
 		
 		// Calculating total quantity Cart
@@ -151,7 +132,7 @@ cart.forEach((cartItem, index) => {
 		totalPrice.textContent = (totalCart);
 	})
 	.catch(function(err) {
-		console.log(err)
+		console.log(err);
 	})
 });
 
