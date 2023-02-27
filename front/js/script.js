@@ -22,7 +22,7 @@ fetch("http://localhost:3000/api/products")
 		console.log('######################################################################################');
 		console.log(index);
 		console.log(product);
-    */
+    	*/
 
 		// adding links for page product
 		let productLink = document.createElement("a")

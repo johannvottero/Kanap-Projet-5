@@ -2,9 +2,6 @@
 
 let cart = getCart()
 
-/* let cart = JSON.parse(localStorage.getItem("cart"));
-if(cart === null) cart = []; */
-
 // case cart is empty
 if (cart.length === 0) {
 	let errorMsgEmptyCart = document.querySelector("section.cart");
@@ -125,6 +122,7 @@ cart.forEach((cartItem, index) => {
 		totalQuantityCart = (Number(totalQuantityCart) + Number(cartItem.qty));
 		// Adding the total quantity on the page
 		totalQuantity.textContent = (totalQuantityCart);
+
 
 		// Calculating total price Cart
 		totalCart = totalCart + Number(product.price) * Number(cartItem.qty);
