@@ -109,6 +109,7 @@ cart.forEach((cartItem, index) => {
 		// Listening 'click' event  on delete button
 		deleteButton.addEventListener('click', function(event) {
 			deleteProductToCart(cartItem.id, cartItem.color);
+			//event.target.closest('article.cart__item').remove();
 			location.reload();
 		});
 
